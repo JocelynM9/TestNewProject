@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class HomeActivity extends AppCompatActivity {
-    Button btnLogout;
+    Button btnLogout, btnProfile;
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseFirestore db;
@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         saveBtn = findViewById(R.id.saveBtn);
         showAllBtn = findViewById(R.id.showAllBtn);
         btnLogout = findViewById(R.id.btnLogout);
+        btnProfile = findViewById(R.id.btnProfile);
 
         db = FirebaseFirestore.getInstance();
 
@@ -53,6 +54,13 @@ public class HomeActivity extends AppCompatActivity {
         }else {
             saveBtn.setText("Save");
         }
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
+            }
+        });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +93,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 Intent i = new Intent(HomeActivity.this, MainActivity.class);
-                finish();
                 startActivity(i);
+                finish();
             }
         });
 
